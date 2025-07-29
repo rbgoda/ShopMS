@@ -1,0 +1,24 @@
+{
+  "name": "multitenant-shop-saas",
+  "version": "1.0.0",
+  "description": "A full-stack SaaS multitenant shop platform for shopkeepers",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend", 
+    "admin-dashboard"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:admin\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev", 
+    "dev:admin": "cd admin-dashboard && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend && npm run build:admin",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:admin": "cd admin-dashboard && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
