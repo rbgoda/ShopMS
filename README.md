@@ -1,282 +1,328 @@
 # Multitenant Shop SaaS Platform
 
-A complete full-stack SaaS solution for creating multitenant e-commerce shops. Each shopkeeper can have their own independent shop with a custom subdomain, product management, order processing, and customer management.
+A complete full-stack SaaS platform for shopkeepers to create and manage their online stores with multitenant architecture, built with Node.js, React, TypeScript, and **Supabase PostgreSQL**.
 
-## 🚀 Features
+## 🌟 Features
 
-### ✅ Completed Core Features
+### ✅ **Completed Features**
 
-#### Backend API (Node.js/Express/PostgreSQL)
-- **Multitenancy**: Complete tenant isolation with subdomain-based routing
-- **Authentication & Authorization**: JWT-based auth with role-based permissions (Owner, Admin, Staff)
-- **Product Management**: Full CRUD operations with categories, inventory tracking, SEO fields
-- **Order Management**: Order processing, status tracking, payment integration ready
-- **Customer Management**: Customer profiles, order history, analytics
-- **Dashboard Analytics**: Revenue tracking, sales charts, inventory alerts
-- **Public API**: Frontend shop API with product catalog and shop information
+#### **Backend API**
+- 🏗️ **Multitenant Architecture** - Subdomain-based tenant isolation
+- 🔐 **Authentication & Authorization** - JWT with role-based permissions (Owner, Admin, Staff)
+- 📦 **Product Management** - Full CRUD with categories, inventory, pricing
+- 🛒 **Order Processing** - Complete order lifecycle with status tracking
+- 👥 **Customer Management** - Customer profiles with order history
+- 📊 **Analytics Dashboard** - Revenue tracking, sales insights, low stock alerts
+- 🌐 **Public API** - Product catalog for frontend shops
+- 🔒 **Security Features** - Rate limiting, input validation, CORS
+- 💾 **Supabase Integration** - PostgreSQL database with real-time capabilities
 
-#### Admin Dashboard (React/TypeScript/Tailwind)
-- **Responsive Design**: Mobile-first design with modern UI components
-- **Authentication**: Login/Register with tenant creation
-- **Dashboard**: Analytics overview with charts and key metrics
-- **Sidebar Navigation**: Easy access to all management features
-- **Modern Stack**: Vite, TypeScript, Tailwind CSS, Heroicons
+#### **Admin Dashboard**
+- 🎨 **Modern UI/UX** - Built with React, TypeScript, and Tailwind CSS
+- 📱 **Responsive Design** - Mobile-first approach with beautiful components
+- 🔑 **Authentication Flow** - Login/register with tenant creation
+- 📈 **Analytics Charts** - Revenue, orders, and performance metrics using Recharts
+- 🎯 **Tenant Management** - Shop creation with auto-generated subdomains
+- ⚡ **Real-time Updates** - Live data with modern React patterns
 
-#### Frontend Shop (React/TypeScript/Tailwind)
-- **Shop Landing Page**: Hero section with featured products
-- **Product Catalog**: Product listing and detail views
-- **Responsive Design**: Mobile-optimized shopping experience
-- **Tenant Context**: Automatic subdomain detection and shop customization
-
-### 🔄 Planned Features (Ready for Implementation)
-
-#### Product Management
-- Image upload and gallery management
-- Product variants and options
-- Bulk product import/export
-- Advanced filtering and search
-
-#### Order Processing
-- Shopping cart functionality
-- Checkout process with address management
-- Payment integration (Stripe ready)
-- Order tracking and notifications
-- Invoice generation
-
-#### Advanced Features
-- Email notifications (NodeMailer configured)
-- File upload handling (Multer configured)
-- Rate limiting and security
-- SEO optimization
-- Multi-language support
-- Theme customization
+#### **Frontend Shop**
+- 🛍️ **Shopping Experience** - Product catalog with featured items
+- 🎨 **Beautiful Design** - Modern, responsive storefront
+- 🏪 **Tenant-Aware** - Automatic subdomain detection and branding
+- 📱 **Mobile Optimized** - Seamless experience across all devices
 
 ## 🏗️ Architecture
 
-### Project Structure
+### **Technology Stack**
+- **Backend**: Node.js, Express.js, TypeScript, Sequelize ORM
+- **Database**: Supabase PostgreSQL (with real-time features)
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS
+- **Authentication**: JWT with bcrypt
+- **Validation**: express-validator
+- **Charts**: Recharts (admin dashboard)
+- **Icons**: Heroicons
+- **Monorepo**: npm workspaces
+
+### **Database Schema**
 ```
-├── backend/                 # Node.js API server
-│   ├── src/
-│   │   ├── models/         # Sequelize database models
-│   │   ├── routes/         # API route handlers
-│   │   ├── controllers/    # Business logic controllers
-│   │   ├── middleware/     # Authentication, validation, etc.
-│   │   ├── config/         # Database and app configuration
-│   │   └── utils/          # Helper utilities
-│   └── package.json
-├── admin-dashboard/        # React admin interface
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Dashboard pages
-│   │   ├── contexts/       # React context for state management
-│   │   └── hooks/          # Custom React hooks
-│   └── package.json
-├── frontend/              # Public shop interface
-│   ├── src/
-│   │   ├── components/     # Shop UI components
-│   │   ├── pages/          # Shop pages
-│   │   └── contexts/       # Shop context and state
-│   └── package.json
-└── package.json           # Workspace configuration
+Tenants (Shops)
+├── Users (Shop owners, admins, staff)
+├── Products
+│   └── Categories
+├── Orders
+│   └── OrderItems
+└── Customers
 ```
-
-### Database Schema
-
-#### Core Models
-- **Tenants**: Shop information, subdomain, subscription details
-- **Users**: Shop owners/staff with role-based permissions
-- **Products**: Product catalog with categories, pricing, inventory
-- **Customers**: Customer profiles and contact information
-- **Orders**: Order processing with items, payments, shipping
-- **Categories**: Product categorization and organization
-
-#### Key Relationships
-- One tenant has many users, products, customers, orders
-- Products belong to categories and tenants
-- Orders contain multiple order items (products)
-- Customers can have multiple orders
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- PostgreSQL 12+
-- npm or yarn
+- Node.js 18+ and npm
+- Supabase account and project
 
-### Installation
+### 1. **Supabase Setup**
 
-1. **Clone and Install Dependencies**
+1. **Create a Supabase Project**:
+   - Go to [supabase.com](https://supabase.com)
+   - Create a new project
+   - Wait for the database to be ready
+
+2. **Get Your Credentials**:
+   - Project URL: `https://your-project-ref.supabase.co`
+   - Anon Key: Found in Settings > API
+   - Service Role Key: Found in Settings > API
+   - Database Password: Set during project creation
+
+3. **Optional: Configure Database**:
+   ```sql
+   -- The app will auto-create tables, but you can run this for manual setup
+   -- Tables: tenants, users, products, categories, orders, order_items, customers
+   ```
+
+### 2. **Project Setup**
+
 ```bash
-git clone <repository-url>
-cd multitenant-shop-saas
+# Clone the repository
+git clone https://github.com/rbgoda/ShopMS.git
+cd ShopMS
+
+# Install dependencies for all workspaces
 npm install
+
+# Configure environment variables
+cp backend/.env backend/.env.local
 ```
 
-2. **Database Setup**
-```bash
-# Create PostgreSQL database
-createdb multitenant_shop
+### 3. **Environment Configuration**
 
-# Update backend/.env with your database credentials
-cp backend/.env.example backend/.env
-# Edit database connection details
-```
+Update `backend/.env` with your Supabase credentials:
 
-3. **Start Development Servers**
-```bash
-# Start all services concurrently
-npm run dev
-
-# Or start individually:
-npm run dev:backend    # API server on :5000
-npm run dev:admin      # Admin dashboard on :3001  
-npm run dev:frontend   # Shop frontend on :3000
-```
-
-### First Shop Setup
-
-1. **Create Your First Shop**
-   - Go to http://localhost:3001/register
-   - Fill in shop details (name, subdomain, owner info)
-   - Login to the admin dashboard
-
-2. **Configure Shop**
-   - Add categories in the Categories section
-   - Create products with pricing and descriptions
-   - Set up shop information and settings
-
-3. **View Your Shop**
-   - Visit http://localhost:3000 to see your shop
-   - Products will appear based on your subdomain
-   - Test the shopping experience
-
-## 🔧 Configuration
-
-### Environment Variables
-
-#### Backend (.env)
 ```env
-# Database
-DB_HOST=localhost
+# Database Configuration (Supabase PostgreSQL)
+DB_HOST=db.your-project-ref.supabase.co
 DB_PORT=5432
-DB_NAME=multitenant_shop
+DB_NAME=postgres
 DB_USER=postgres
-DB_PASSWORD=your_password
+DB_PASSWORD=your-supabase-password
+DATABASE_URL=postgresql://postgres:your-supabase-password@db.your-project-ref.supabase.co:5432/postgres
 
-# Authentication
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
+# Supabase Configuration
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 
-# Server
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here-make-it-long-and-random
+JWT_EXPIRES_IN=7d
+
+# Server Configuration
 PORT=5000
 NODE_ENV=development
 
-# CORS
+# Frontend URLs
 FRONTEND_URL=http://localhost:3000
 ADMIN_URL=http://localhost:3001
 ```
 
-### Multitenancy
+### 4. **Start Development**
 
+```bash
+# Start all services (backend + admin + frontend)
+npm run dev
+
+# Or start individually:
+npm run dev:backend    # Backend API (port 5000)
+npm run dev:admin     # Admin Dashboard (port 3001)
+npm run dev:frontend  # Shop Frontend (port 3000)
+```
+
+### 5. **Create Your First Shop**
+
+1. Open Admin Dashboard: `http://localhost:3001`
+2. Click "Register" to create a new shop
+3. Fill in shop details (subdomain will be auto-generated)
+4. Login to access the dashboard
+5. View your shop at: `http://localhost:3000`
+
+## 🔧 Configuration
+
+### **Multitenancy**
 The platform uses subdomain-based multitenancy:
-- Each shop gets a unique subdomain (e.g., `myshop.localhost`)
-- API automatically resolves tenant from subdomain/domain
-- Complete data isolation between tenants
-- Custom themes and branding per tenant
+- **Admin Dashboard**: `admin.yourdomain.com`
+- **Shop 1**: `shop1.yourdomain.com`
+- **Shop 2**: `shop2.yourdomain.com`
 
-## 📚 API Documentation
+For local development:
+- **Admin**: `localhost:3001`
+- **Shops**: `localhost:3000` (with tenant headers)
 
-### Authentication Endpoints
-- `POST /api/auth/register` - Create new shop and owner
-- `POST /api/auth/login` - Authenticate user
-- `GET /api/auth/profile` - Get user profile
+### **Environment Variables**
 
-### Admin Endpoints (Authenticated)
-- `GET /api/dashboard/overview` - Dashboard analytics
-- `GET /api/products` - List products with filtering
-- `POST /api/products` - Create new product
-- `GET /api/orders` - List orders with status filtering
-- `GET /api/customers` - List customers
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | Supabase PostgreSQL connection string | ✅ |
+| `SUPABASE_URL` | Your Supabase project URL | ✅ |
+| `SUPABASE_ANON_KEY` | Supabase anonymous key | ✅ |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key | ✅ |
+| `JWT_SECRET` | Secret for JWT token signing | ✅ |
+| `PORT` | Backend server port | ❌ (default: 5000) |
+| `FRONTEND_URL` | Frontend URL for CORS | ❌ |
+| `ADMIN_URL` | Admin dashboard URL for CORS | ❌ |
 
-### Public Shop Endpoints
-- `GET /api/public/shop` - Shop information
-- `GET /api/public/products` - Public product catalog
-- `GET /api/public/products/:slug` - Product details
-- `GET /api/public/categories` - Product categories
+### **Supabase Features Available**
+- **PostgreSQL Database**: Primary data storage
+- **Real-time subscriptions**: For live updates (ready to implement)
+- **Row Level Security**: For enhanced tenant isolation (can be configured)
+- **Storage**: For file uploads (ready to implement)
+- **Edge Functions**: For serverless functions (ready to implement)
 
-## 🛠️ Technology Stack
+## 📡 API Documentation
 
-### Backend
-- **Runtime**: Node.js with TypeScript
-- **Framework**: Express.js
-- **Database**: PostgreSQL with Sequelize ORM
-- **Authentication**: JWT with bcrypt
-- **Validation**: express-validator
-- **Security**: Helmet, CORS, rate limiting
-- **Email**: NodeMailer (configured)
-- **Payments**: Stripe (ready for integration)
+### **Authentication Endpoints**
+```
+POST /api/auth/register    # Create new tenant & owner
+POST /api/auth/login       # Authenticate user
+GET  /api/auth/profile     # Get user profile
+PUT  /api/auth/profile     # Update user profile
+PUT  /api/auth/password    # Change password
+```
 
-### Frontend
-- **Framework**: React 18 with TypeScript
-- **Build Tool**: Vite for fast development
-- **Styling**: Tailwind CSS with custom components
-- **Routing**: React Router v6
-- **Icons**: Heroicons
-- **HTTP Client**: Axios
-- **Charts**: Recharts (admin dashboard)
+### **Product Management**
+```
+GET    /api/products           # List products (with search, filter, pagination)
+POST   /api/products           # Create product
+GET    /api/products/:id       # Get product details
+PUT    /api/products/:id       # Update product
+DELETE /api/products/:id       # Delete product
+```
 
-### Development Tools
-- **Package Manager**: npm workspaces for monorepo
-- **Code Quality**: ESLint configuration
-- **CSS Processing**: PostCSS with Tailwind
-- **Development**: Hot reload for all services
+### **Order Management**
+```
+GET    /api/orders             # List orders (with filters)
+POST   /api/orders             # Create order
+GET    /api/orders/:id         # Get order details
+PUT    /api/orders/:id         # Update order status
+DELETE /api/orders/:id         # Cancel order
+GET    /api/orders/analytics   # Order analytics
+```
+
+### **Public Shop API**
+```
+GET /api/public/shop          # Get shop information
+GET /api/public/products      # Get public product catalog
+GET /api/public/categories    # Get product categories
+```
 
 ## 🚀 Deployment
 
-### Docker Deployment (Recommended)
+### **Supabase Production Setup**
+
+1. **Set Production Environment**:
+   ```env
+   NODE_ENV=production
+   DATABASE_URL=your-production-supabase-url
+   ```
+
+2. **Enable SSL** (automatically configured for production)
+
+3. **Configure Row Level Security** (optional):
+   ```sql
+   -- Enable RLS for enhanced security
+   ALTER TABLE tenants ENABLE ROW LEVEL SECURITY;
+   ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+   -- Add policies as needed
+   ```
+
+### **Platform Deployment Options**
+
+#### **Backend Deployment**
+- **Vercel**: Deploy backend with serverless functions
+- **Railway**: Deploy with PostgreSQL addon
+- **Heroku**: Deploy with Heroku Postgres
+- **DigitalOcean**: Deploy on App Platform
+
+#### **Frontend Deployment**
+- **Vercel**: Automatic deployment with Git integration
+- **Netlify**: Static site deployment with forms
+- **AWS S3 + CloudFront**: Static hosting with CDN
+
+#### **Full-Stack Deployment**
+- **Railway**: Deploy monorepo with multiple services
+- **Docker**: Containerized deployment anywhere
+- **DigitalOcean**: App Platform multi-container
+
+### **Production Checklist**
+- [ ] Configure production Supabase project
+- [ ] Set strong JWT secret
+- [ ] Enable HTTPS/SSL
+- [ ] Configure CORS for production domains
+- [ ] Set up error monitoring (Sentry, LogRocket)
+- [ ] Configure file storage (Supabase Storage)
+- [ ] Set up automated backups
+- [ ] Configure email service (SendGrid, Mailgun)
+- [ ] Set up payment processing (Stripe)
+
+## 🛠️ Development
+
+### **Available Scripts**
 ```bash
-# Build and run with Docker Compose
-docker-compose up -d
+npm run dev          # Start all services
+npm run build        # Build all projects
+npm run dev:backend  # Start backend only
+npm run dev:admin    # Start admin dashboard only
+npm run dev:frontend # Start frontend only
 ```
 
-### Manual Deployment
-1. Build all applications:
-```bash
-npm run build
+### **Project Structure**
 ```
-
-2. Configure production environment variables
-3. Set up PostgreSQL database
-4. Deploy to your hosting platform (Vercel, Railway, DigitalOcean, etc.)
-
-### Environment-Specific Configurations
-- **Development**: localhost with subdomains
-- **Staging**: Custom domain with subdomain routing
-- **Production**: SSL certificates, domain configuration, CDN
+workspace/
+├── backend/                 # Express.js API
+│   ├── src/
+│   │   ├── config/         # Database & Supabase config
+│   │   ├── models/         # Sequelize models
+│   │   ├── controllers/    # Route controllers
+│   │   ├── middleware/     # Auth, validation, tenant
+│   │   ├── routes/         # API routes
+│   │   └── utils/          # Helper functions
+│   ├── .env               # Environment variables
+│   └── package.json
+├── admin-dashboard/        # React admin interface
+│   ├── src/
+│   │   ├── components/    # Reusable components
+│   │   ├── pages/         # Page components
+│   │   ├── contexts/      # React contexts
+│   │   └── App.tsx
+│   └── package.json
+├── frontend/              # React shop frontend
+│   ├── src/
+│   │   ├── components/   # Shop components
+│   │   ├── pages/        # Shop pages
+│   │   ├── contexts/     # Shop context
+│   │   └── App.tsx
+│   └── package.json
+└── package.json          # Workspace configuration
+```
 
 ## 🤝 Contributing
 
-This is a complete starter template. To extend functionality:
-
-1. **Backend**: Add new models, routes, and controllers
-2. **Admin Dashboard**: Create new pages and components
-3. **Frontend Shop**: Enhance shopping experience
-4. **Integrations**: Add payment gateways, shipping providers, analytics
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📝 License
 
-MIT License - feel free to use this template for your projects.
+This project is licensed under the ISC License.
 
 ## 🆘 Support
 
-For questions and support:
-- Check the code documentation
-- Review API endpoints and middleware
-- Examine component structure and contexts
-- Test with sample data
+For support and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Review the API endpoints
 
 ---
 
-**Ready to launch your SaaS e-commerce platform!** 🎉
-
-The foundation is complete - now customize it for your specific needs and add advanced features like payments, advanced analytics, and integrations.
+**Built with ❤️ for shopkeepers worldwide**
